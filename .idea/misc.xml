@@ -3,7 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/project/Native Android/Test/Stockbit Test/app/src/main/res/layout/activity_main.xml" value="0.16770833333333332" />
+        <entry key="..\:/project/Native Android/Test/Stockbit Test/app/src/main/res/drawable/ic_icons8_facebook.xml" value="0.1765" />
+        <entry key="..\:/project/Native Android/Test/Stockbit Test/app/src/main/res/drawable/ic_icons8_google.xml" value="0.1765" />
+        <entry key="..\:/project/Native Android/Test/Stockbit Test/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/project/Native Android/Test/Stockbit Test/app/src/main/res/layout/fragment_listcrypto.xml" value="0.16666666666666666" />
+        <entry key="..\:/project/Native Android/Test/Stockbit Test/app/src/main/res/layout/fragment_login.xml" value="0.33" />
+        <entry key="..\:/project/Native Android/Test/Stockbit Test/common/src/main/res/drawable/bg_rounded.xml" value="0.1765" />
+        <entry key="..\:/project/Native Android/Test/Stockbit Test/common/src/main/res/drawable/bg_toast.xml" value="0.1765" />
+        <entry key="..\:/project/Native Android/Test/Stockbit Test/common/src/main/res/drawable/ic_data_not_found.xml" value="0.1765" />
+        <entry key="..\:/project/Native Android/Test/Stockbit Test/common/src/main/res/drawable/ic_error_button.xml" value="0.1765" />
+        <entry key="..\:/project/Native Android/Test/Stockbit Test/common/src/main/res/drawable/ic_error_nobutton.xml" value="0.1765" />
+        <entry key="..\:/project/Native Android/Test/Stockbit Test/common/src/main/res/drawable/ic_no_image.xml" value="0.1765" />
+        <entry key="..\:/project/Native Android/Test/Stockbit Test/common/src/main/res/layout/basedialog_alert.xml" value="0.34479166666666666" />
+        <entry key="..\:/project/Native Android/Test/Stockbit Test/common/src/main/res/layout/custom_twobutton_dialog.xml" value="0.34479166666666666" />
       </map>
     </option>
   </component>

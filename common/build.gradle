@@ -1,9 +1,23 @@
 apply plugin: 'com.android.library'
 apply from: '../android_commons.gradle'
 
+android {
+    buildFeatures {
+        viewBinding true
+    }
+    buildFeatures {
+        dataBinding true
+    }
+}
+
 dependencies {
     implementation AndroidLibraries.appCompat
     implementation AndroidLibraries.navigation
     implementation AndroidLibraries.navigationFrag
     implementation project(Modules.navigation)
+    implementation AndroidLibraries.lifecycleExtensions
+    implementation AndroidLibraries.lifecycleViewModel
+    implementation AndroidLibraries.bindingCompiler
+    implementation AndroidLibraries.dataBinding
+    implementation project(path: ':data:repository')
 }

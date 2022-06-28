@@ -1,4 +1,9 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id "androidx.navigation.safeargs.kotlin"
+}
 apply from: '../android_commons.gradle'
 
 android {
@@ -6,8 +11,11 @@ android {
         applicationId ApplicationId.id
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    dataBinding {
-        enabled true
+    buildFeatures {
+        viewBinding true
+    }
+    buildFeatures {
+        dataBinding true
     }
 }
 
@@ -28,4 +36,13 @@ dependencies {
     implementation AndroidLibraries.appCompat
     implementation AndroidLibraries.navigation
     implementation AndroidLibraries.navigationFrag
+    // BINDING
+    implementation AndroidLibraries.bindingCompiler
+    implementation AndroidLibraries.dataBinding
+
+    implementation AndroidLibraries.lifecycleViewModel
+    implementation AndroidLibraries.lifecycleExtensions
+
+    implementation "androidx.fragment:fragment-ktx:1.4.1"
+
 }

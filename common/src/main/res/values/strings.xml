@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">Stockbit Example</string>
     <string name="an_error_happened">An error happened, please retry !</string>
+
+    <string name="error_default">Something is Wrong</string>
+    <string name="error_search_notfound">%1$s Not Found</string>
+    <string name="error_unauthorized">Session Timeout</string>
+
+    <string name="success_default">Success</string>
+
+    <string name="loading_default">Loading...</string>
+
+    <string name="login">Log In</string>
+    <string name="retry">Retry</string>
+    <string name="link_here">Link Here</string>
+
+    <string name="format_price">Rp%1$s</string>
+
+    <string name="default_dialog_title">Alert</string>
+
 </resources>

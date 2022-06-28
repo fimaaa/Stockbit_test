@@ -36,7 +36,7 @@ object Versions {
     val retrofit = "2.8.1"
     val retrofitCoroutines = "0.9.2"
     val retrofitGson = "2.8.1"
-    val gson = "2.8.5"
+    val gson = "2.8.9"
     val okHttp = "3.12.1"
     val coroutines = "1.4.3"
     val koin = "2.0.1"
@@ -88,6 +88,9 @@ object AndroidLibraries {
     val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerview}"
     val navigation = "androidx.navigation:navigation-ui-ktx:${Versions.nav}"
     val navigationFrag = "androidx.navigation:navigation-fragment-ktx:${Versions.nav}"
+    // DataBinding
+    val bindingCompiler = "com.android.databinding:compiler:${Versions.gradle}"
+    val dataBinding = "com.jakewharton.rxbinding2:rxbinding:2.2.0"
 }
 
 object TestLibraries {

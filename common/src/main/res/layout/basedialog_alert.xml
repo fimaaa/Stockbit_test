@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_close_basedialogalert"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="16dp"
+        android:layout_gravity="end"
+        android:src="@drawable/ic_close_x"
+        />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_dialog"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_error_nobutton"
+        android:tint="@color/colorSecondary"
+        tools:visibility="visible"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title_dialog"
+        style="@style/title_normal_dark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/error_default"
+        android:textAlignment="center"
+        android:gravity="center"
+        app:layout_goneMarginTop="32dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/desc_dialog"
+        style="@style/desc_normal_dark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:lineSpacingExtra="5sp"
+        android:textAlignment="center"
+        />
+</LinearLayout>
