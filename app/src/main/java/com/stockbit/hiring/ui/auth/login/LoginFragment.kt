@@ -1,13 +1,16 @@
 package com.stockbit.hiring.ui.auth.login
 
-import com.stockbit.common.base.BaseFragment
-import com.stockbit.common.base.BaseViewModel
-import com.stockbit.hiring.R
-import com.stockbit.hiring.databinding.FragmentLoginBinding
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.stockbit.navigation.NavigationCommand
+import com.stockbit.common.base.BaseFragment
+import com.stockbit.common.base.BaseViewModel
+import com.stockbit.common.extension.observe
+import com.stockbit.hiring.R
+import com.stockbit.hiring.databinding.FragmentLoginBinding
+import com.stockbit.model.common.UIText
+
 
 
 class LoginFragment: BaseFragment<FragmentLoginBinding>(
@@ -19,9 +22,44 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(
 
     override fun getViewModel(): BaseViewModel = viewModel
 
+    override fun onInitialization() {
+        viewModel.navigator = this
+    }
+
     override fun onReadyAction() {
-        binding.btnLoginGoogle.setOnClickListener {
-            navController.navigate(LoginFragmentDirections.actionLoginFragmentToListCryptoFragment())
+        setToolbar(
+            centerTitle = UIText.StringResource(R.string.page_title_login),
+            rightImage = R.drawable.ic_headset_mic
+        )
+        binding.apply {
+            btnLoginActionlogin.setOnClickListener {
+                viewModel.validateLogin(
+                    tiLoginUsermail.editText?.text.toString(),
+                    tiLoginPassword.editText?.text.toString()
+                )
+            }
+            tiLoginUsermail.editText?.addTextChangedListener {
+                if(tiLoginUsermail.error != null) tiLoginUsermail.error = null
+                setActionLoginButton()
+            }
+            tiLoginPassword.editText?.addTextChangedListener {
+                if(tiLoginPassword.error != null) tiLoginPassword.error = null
+                setActionLoginButton()
+            }
         }
+    }
+
+    private fun setActionLoginButton() {
+        binding.btnLoginActionlogin.isEnabled = binding.tiLoginUsermail.error == null && binding.tiLoginPassword.error == null
+    }
+
+    override fun setEmailError(message: UIText) {
+        binding.tiLoginUsermail.error = message.asString(requireContext())
+        setActionLoginButton()
+    }
+
+    override fun setPasswordError(message: UIText) {
+        binding.tiLoginPassword.error = message.asString(requireContext())
+        setActionLoginButton()
     }
 }

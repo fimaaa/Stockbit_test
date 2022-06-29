@@ -4,13 +4,13 @@ import com.stockbit.model.common.UIText
 
 interface MainView {
     fun setToolbar(
-        leftImage: Int,
         rightImage: Int,
+        leftImage: Int? = null,
         centerTitle: UIText? = null,
         centerImage: Int? = null,
     )
 
-    fun setToolbarLeft(listener: (()-> Unit)? = {})
+    fun setToolbarLeft(listener: (()-> Unit)?)
     fun setToolbarRight(listener: ()-> Unit)
 
 }

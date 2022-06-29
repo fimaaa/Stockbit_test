@@ -8,14 +8,12 @@ import com.google.gson.annotations.SerializedName
  */
 
 data class BaseResponse<M,D>(
-    @SerializedName(value = "code_message")
+    @SerializedName(value = "Message")
     val codeMessage: M,
-    @SerializedName(value = "code")
+    @SerializedName(value = "Type")
     val code: Int = 0,
     @SerializedName(value = "data")
     val data: D,
-    @SerializedName(value = "code_type")
-    val codeType: String?,
-    @SerializedName(value = "pagination")
+    @SerializedName(value = "MetaData")
     val pagination: BasePagination?
 )

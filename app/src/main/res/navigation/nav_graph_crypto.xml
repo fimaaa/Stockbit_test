@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_crypto"
+    app:startDestination="@id/listCryptoFragment">
+
+    <fragment
+        android:id="@+id/listCryptoFragment"
+        android:name="com.stockbit.hiring.ui.crypto.list.ListCryptoFragment"
+        android:label="ListCryptoFragment"
+        tools:layout="@layout/fragment_listcrypto"
+        />
+    <fragment
+        android:id="@+id/socketCryptoFragment"
+        android:name="com.stockbit.hiring.ui.crypto.socket.SocketCryptoFragment"
+        android:label="SocketCryptoFragment"
+        tools:layout="@layout/fragment_crypto_socket"
+        />
+</navigation>

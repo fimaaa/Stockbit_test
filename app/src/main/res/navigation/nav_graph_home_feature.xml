@@ -11,13 +11,13 @@
         tools:layout="@layout/fragment_login"
         >
         <action
-            android:id="@+id/action_loginFragment_to_listCryptoFragment"
-            app:destination="@id/listCryptoFragment" />
+            android:id="@+id/action_loginFragment_to_homeCryptoFragment"
+            app:destination="@id/homeCryptoFragment" />
     </fragment>
     <fragment
-        android:id="@+id/listCryptoFragment"
-        android:name="com.stockbit.hiring.ui.crypto.list.ListCryptoFragment"
-        android:label="ListCryptoFragment"
-        tools:layout="@layout/fragment_listcrypto"
+        android:id="@+id/homeCryptoFragment"
+        android:name="com.stockbit.hiring.ui.crypto.home.HomeCryptoFragment"
+        android:label="HomeCryptoFragment"
+        tools:layout="@layout/fragment_home_crypto"
         />
 </navigation>

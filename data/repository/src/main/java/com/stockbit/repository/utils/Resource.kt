@@ -1,5 +1,7 @@
 package com.stockbit.repository.utils
 
+import java.net.HttpURLConnection
+
 data class Resource<out T>(val status: Status, val data: T?, val error: Throwable?) {
     companion object {
         fun <T> success(data: T?): Resource<T> {
@@ -25,11 +27,18 @@ data class Resource<out T>(val status: Status, val data: T?, val error: Throwabl
                 null
             )
         }
+
+        fun <T> empty(): Resource<T> = Resource(
+            status = Status.EMPTY,
+            data = null,
+            error = null
+        )
     }
 
     enum class Status {
         SUCCESS,
         ERROR,
-        LOADING
+        LOADING,
+        EMPTY
     }
 }

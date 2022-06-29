@@ -5,18 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
 import com.stockbit.common.utils.Event
+import com.stockbit.model.common.UIText
 import com.stockbit.navigation.NavigationCommand
 import com.stockbit.repository.utils.Resource
 import kotlinx.coroutines.CoroutineScope
 
-abstract class BaseViewModel: ViewModel(), BaseNavigator {
+abstract class BaseViewModel: ViewModel() {
 
     val statusViewModel = MutableLiveData<Resource<Boolean>>()
+
     lateinit var navigator: BaseNavigator
 
     // FOR ERROR HANDLER
-    protected val _snackbarError = MutableLiveData<Event<Int>>()
-    val snackBarError: LiveData<Event<Int>> get() = _snackbarError
+    protected val _snackbarError = MutableLiveData<Event<UIText>>()
+    val snackBarError: LiveData<Event<UIText>> get() = _snackbarError
 
     // FOR NAVIGATION
     private val _navigation = MutableLiveData<Event<NavigationCommand>>()

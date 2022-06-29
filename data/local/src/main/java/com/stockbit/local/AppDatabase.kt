@@ -7,9 +7,9 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.stockbit.local.converter.Converters
 import com.stockbit.local.dao.ExampleDao
-import com.stockbit.model.ExampleModel
+import com.stockbit.model.CryptoData
 
-@Database(entities = [ExampleModel::class], version = 1, exportSchema = false)
+@Database(entities = [CryptoData::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
 

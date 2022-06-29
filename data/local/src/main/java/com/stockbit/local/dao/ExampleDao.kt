@@ -2,20 +2,19 @@ package com.stockbit.local.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.stockbit.model.ExampleModel
-import java.util.*
+import com.stockbit.model.CryptoData
 
 @Dao
-abstract class ExampleDao: BaseDao<ExampleModel>() {
+abstract class ExampleDao: BaseDao<CryptoData>() {
 
-    @Query("SELECT * FROM ExampleModel WHERE name = :name LIMIT 1")
-    abstract suspend fun getExample(name: String): ExampleModel
+    @Query("SELECT * FROM CryptoData WHERE name = :name LIMIT 1")
+    abstract suspend fun getExample(name: String): CryptoData
 
-    suspend fun save(data: ExampleModel) {
+    suspend fun save(data: CryptoData) {
         insert(data)
     }
 
-    suspend fun save(datas: List<ExampleModel>) {
+    suspend fun save(datas: List<CryptoData>) {
         insert(datas)
     }
 }

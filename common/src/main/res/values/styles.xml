@@ -10,6 +10,14 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:windowBackground">@drawable/splashscreen_background</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorAccent</item>
+    </style>
+
     <style name="ButtonSocmed" parent="Widget.MaterialComponents.Button">
         <item name="iconTint">@android:color/transparent</item>
         <item name="iconTintMode">add</item>
@@ -32,6 +40,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="title_large_dark">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="lineHeight">13dp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+    <style name="title_large_light">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="lineHeight">13dp</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
     <style name="title_normal_dark">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_small</item>

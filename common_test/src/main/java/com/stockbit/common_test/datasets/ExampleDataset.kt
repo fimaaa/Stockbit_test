@@ -1,10 +1,9 @@
 package com.stockbit.common_test.datasets
 
-import com.stockbit.model.ExampleModel
-import java.util.*
+import com.stockbit.model.CryptoData
 
 object ExampleDataset {
     val FAKE_EXAMPLE = listOf(
-        ExampleModel("1", "John")
+        CryptoData("1", "John")
     )
 }

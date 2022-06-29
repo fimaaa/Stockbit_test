@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.stockbit.common.utils.Event
+import com.stockbit.model.common.UIText
 
 /**
  * Transforms static java function Snackbar.make() to an extension function on View.
@@ -18,10 +19,10 @@ fun Fragment.showSnackbar(snackbarText: String, timeLength: Int) {
 /**
  * Triggers a snackbar message when the value contained by snackbarTaskMessageLiveEvent is modified.
  */
-fun Fragment.setupSnackbar(lifecycleOwner: LifecycleOwner, snackbarEvent: LiveData<Event<Int>>, timeLength: Int) {
+fun Fragment.setupSnackbar(lifecycleOwner: LifecycleOwner, snackbarEvent: LiveData<Event<UIText>>, timeLength: Int) {
     snackbarEvent.observe(lifecycleOwner, Observer { event ->
         event.getContentIfNotHandled()?.let { res ->
-            context?.let { showSnackbar(it.getString(res), timeLength) }
+            context?.let { showSnackbar(res.asString(it), timeLength) }
         }
     })
 }

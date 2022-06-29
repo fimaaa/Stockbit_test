@@ -26,4 +26,6 @@ dependencies {
     androidTestImplementation TestLibraries.junit
     androidTestImplementation TestLibraries.koin
     androidTestImplementation TestLibraries.archCoreTest
+
+    implementation Libraries.gson
 }

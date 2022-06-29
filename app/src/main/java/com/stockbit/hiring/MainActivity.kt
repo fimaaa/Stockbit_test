@@ -3,6 +3,7 @@ package com.stockbit.hiring
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity(), MainView {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         init()
@@ -43,27 +45,23 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun setToolbar(
-        leftImage: Int,
         rightImage: Int,
+        leftImage: Int?,
         centerTitle: UIText?,
         centerImage: Int?
     ) {
-        binding.ivToolbarLeft.setImageResource(leftImage)
+        leftImage?.let { binding.ivToolbarLeft.setImageResource(it) }
+        binding.ivToolbarLeft.isVisible = leftImage != null
+
         binding.ivToolbarRight.setImageResource(rightImage)
 
-        if(centerTitle == null){
-            binding.tvToolbarCenter.visibility = View.GONE
-        } else {
-            binding.tvToolbarCenter.visibility = View.VISIBLE
-            binding.tvToolbarCenter.text = centerTitle.asString(this)
-        }
+        binding.tvToolbarCenter.isVisible = centerTitle != null
+        binding.tvToolbarCenter.text = centerTitle?.asString(this)
 
-        if(centerImage == null) {
-            binding.ivToolbarCenter.visibility = View.GONE
-        } else {
-            binding.ivToolbarCenter.visibility = View.VISIBLE
-            binding.ivToolbarCenter.setImageResource(centerImage)
-        }
+
+        binding.ivToolbarCenter.isVisible = centerImage != null
+        centerImage?.let { binding.ivToolbarCenter.setImageResource(it) }
+
     }
 
     override fun setToolbarLeft(listener: (() -> Unit)?) {

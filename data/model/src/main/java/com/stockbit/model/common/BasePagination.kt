@@ -7,7 +7,7 @@ data class BasePagination (
     val currentPage: Int = 0,
     @SerializedName(value = "per_page")
     val perPage: Int = 0,
-    @SerializedName(value = "total_pages")
+    @SerializedName(value = "Count")
     val totalPage: Int = 0,
     @SerializedName(value = "total_records")
     val totalRecords: Int = 0,

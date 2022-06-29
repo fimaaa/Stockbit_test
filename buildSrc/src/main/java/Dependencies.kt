@@ -52,6 +52,8 @@ object Versions {
     val mockk = "1.11.0"
     val fragmentTest = "1.1.0-alpha06"
     val databinding = "3.3.2"
+    val pagination3 = "3.1.1"
+    val fragmentKTX = "1.4.1"
 }
 
 object Libraries {
@@ -91,6 +93,10 @@ object AndroidLibraries {
     // DataBinding
     val bindingCompiler = "com.android.databinding:compiler:${Versions.gradle}"
     val dataBinding = "com.jakewharton.rxbinding2:rxbinding:2.2.0"
+    // Paging3
+    val pagination = "androidx.paging:paging-runtime-ktx:${Versions.pagination3}"
+    // Fragment
+    val fragmentKTX = "androidx.fragment:fragment-ktx:${Versions.fragmentKTX}"
 }
 
 object TestLibraries {

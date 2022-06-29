@@ -19,6 +19,7 @@ import com.stockbit.common.extension.observe
 import com.stockbit.common.extension.setupSnackbar
 import com.stockbit.common.utils.DialogUtils
 import com.stockbit.common.utils.Event
+import com.stockbit.model.common.UIText
 import com.stockbit.navigation.NavigationCommand
 
 abstract class BaseFragment<binding: ViewDataBinding>(
@@ -57,7 +58,7 @@ abstract class BaseFragment<binding: ViewDataBinding>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getViewModel().navigator = this as BaseNavigator
+        if(this is BaseNavigator) getViewModel().navigator = this as BaseNavigator
         onInitialization()
     }
 
@@ -66,6 +67,10 @@ abstract class BaseFragment<binding: ViewDataBinding>(
         observeNavigation(getViewModel())
         setupSnackbar(this, getViewModel().snackBarError, Snackbar.LENGTH_LONG)
         onObserveAction()
+    }
+
+    override fun onStart() {
+        super.onStart()
         onReadyAction()
     }
 
@@ -78,6 +83,18 @@ abstract class BaseFragment<binding: ViewDataBinding>(
         super.onDestroyView()
         onFragmentDestroyed()
     }
+
+    fun setToolbar(
+        rightImage: Int,
+        leftImage: Int? = null,
+        centerTitle: UIText? = null,
+        centerImage: Int? = null,
+    ) = mainView.setToolbar(rightImage, leftImage, centerTitle, centerImage)
+
+
+    fun setToolbarLeft(listener: (()-> Unit)?) = mainView.setToolbarLeft(listener)
+
+    fun setToolbarRight(listener: ()-> Unit) = mainView.setToolbarRight(listener)
 
     // UTILS METHODS ---
     open fun defaultErrorAction(message: String?, code: Int?) {
