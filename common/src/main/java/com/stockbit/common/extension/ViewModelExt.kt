@@ -25,7 +25,7 @@ fun <T> BaseViewModel.safeApiCall(
 //                Firebase.crashlytics.recordException(t)
 //            }
             t.printStackTrace()
-            statusViewModel.value = Resource.error(t)
+            statusViewModel.postValue(Resource.error(t))
         }
     }
 }

@@ -50,4 +50,6 @@ dependencies {
     implementation AndroidLibraries.pagination
     implementation AndroidLibraries.fragmentKTX
 
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:2.7"
+
 }

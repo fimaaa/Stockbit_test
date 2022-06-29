@@ -7,7 +7,7 @@ import com.stockbit.common.utils.ValidateUtill
 import com.stockbit.hiring.R
 import com.stockbit.model.common.UIText
 
-class LoginViewModel: BaseViewModel() {
+class LoginViewModel(): BaseViewModel() {
 
     private val _observableEmail = MutableLiveData<Boolean>()
     val observableEmail: LiveData<Boolean>
@@ -21,7 +21,6 @@ class LoginViewModel: BaseViewModel() {
         email: String,
         password: String
     ) {
-
         if(!validateEmail(email) || !validatePassword(password)) {
             return
         }

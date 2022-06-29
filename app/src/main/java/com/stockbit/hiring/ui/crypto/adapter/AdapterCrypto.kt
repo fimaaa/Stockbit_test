@@ -6,11 +6,11 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.stockbit.hiring.databinding.ItemCryptoBinding
-import com.stockbit.model.CryptoData
+import com.stockbit.model.crypto.ResponseListCryptoInfo
 
 class AdapterCrypto(
-    private val listener: (CryptoData) -> Unit
-) : PagingDataAdapter<CryptoData, AdapterCrypto.ViewHolder>(TASK_COMPARATOR) {
+    private val listener: (ResponseListCryptoInfo) -> Unit
+) : PagingDataAdapter<ResponseListCryptoInfo, AdapterCrypto.ViewHolder>(TASK_COMPARATOR) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
@@ -37,21 +37,21 @@ class AdapterCrypto(
             }
         }
 
-        fun bind(exampleData: CryptoData) {
+        fun bind(exampleData: ResponseListCryptoInfo) {
             binding.data = exampleData
         }
     }
 
     companion object {
-        private val TASK_COMPARATOR = object : DiffUtil.ItemCallback<CryptoData>() {
+        private val TASK_COMPARATOR = object : DiffUtil.ItemCallback<ResponseListCryptoInfo>() {
             override fun areItemsTheSame(
-                oldItem: CryptoData,
-                newItem: CryptoData
+                oldItem: ResponseListCryptoInfo,
+                newItem: ResponseListCryptoInfo
             ): Boolean = oldItem.id == newItem.id
 
             override fun areContentsTheSame(
-                oldItem: CryptoData,
-                newItem: CryptoData
+                oldItem: ResponseListCryptoInfo,
+                newItem: ResponseListCryptoInfo
             ): Boolean = oldItem == newItem
         }
     }

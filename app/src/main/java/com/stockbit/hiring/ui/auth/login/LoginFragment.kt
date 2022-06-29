@@ -38,6 +38,12 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(
                     tiLoginPassword.editText?.text.toString()
                 )
             }
+            btnLoginGoogle.setOnClickListener {
+                viewModel.validateLogin(
+                    "tiLoginUsermail.editText?.text.toString()",
+                    "iLoginPassword.editText?.text.toString()"
+                )
+            }
             tiLoginUsermail.editText?.addTextChangedListener {
                 if(tiLoginUsermail.error != null) tiLoginUsermail.error = null
                 setActionLoginButton()

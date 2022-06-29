@@ -16,6 +16,7 @@
             app:layout_constraintEnd_toStartOf="@id/tv_crypto_price"
             android:gravity="start"
             style="@style/title_large_dark"
+            android:text="@{data.coinInfo.name}"
             tools:text="BTN"
             />
         <com.google.android.material.textview.MaterialTextView
@@ -28,6 +29,7 @@
             app:layout_constraintBottom_toBottomOf="@id/tv_crypto_name"
             android:gravity="center_vertical|end"
             style="@style/title_normal_dark"
+            android:text="@{data.moneyData.coinValue.price}"
             tools:text="RP.25.0000"
             />
         <com.google.android.material.textview.MaterialTextView
@@ -41,6 +43,7 @@
             android:gravity="start"
             style="@style/title_normal_dark"
             android:textColor="@android:color/darker_gray"
+            android:text="@{data.coinInfo.fullName}"
             tools:text="BTN"
             />
         <com.google.android.material.textview.MaterialTextView
@@ -53,6 +56,7 @@
             app:layout_constraintBottom_toBottomOf="@id/tv_crypto_fullname"
             android:gravity="center_vertical|end"
             style="@style/title_normal_light"
+            android:text="@{data.moneyData.coinValue.change}"
             tools:text="RP.25.0000"
             />
         <View
@@ -66,6 +70,6 @@
     <data>
         <variable
             name="data"
-            type="com.stockbit.model.CryptoData" />
+            type="com.stockbit.model.crypto.ResponseListCryptoInfo" />
     </data>
 </layout>

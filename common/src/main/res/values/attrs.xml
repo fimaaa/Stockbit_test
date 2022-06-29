@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LayoutBlank">
+        <attr name="img" format="reference" />
+        <attr name="text" format="string" />
+        <attr name="blankType" format="enum">
+            <enum name="empty" value="404" />
+            <enum name="history" value="1" />
+            <enum name="search" value="2" />
+            <enum name="warning" value="3" />
+            <enum name="sad" value="4" />
+            <enum name="failed" value="5" />
+        </attr>
+    </declare-styleable>
+</resources>

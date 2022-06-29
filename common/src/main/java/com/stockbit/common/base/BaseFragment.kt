@@ -76,11 +76,12 @@ abstract class BaseFragment<binding: ViewDataBinding>(
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
+//        _binding = null
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
         onFragmentDestroyed()
     }
 

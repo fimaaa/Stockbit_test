@@ -12,8 +12,8 @@ data class BaseResponse<M,D>(
     val codeMessage: M,
     @SerializedName(value = "Type")
     val code: Int = 0,
-    @SerializedName(value = "data")
+    @SerializedName(value = "Data")
     val data: D,
     @SerializedName(value = "MetaData")
-    val pagination: BasePagination?
+    val pagination: BasePagination? = null
 )

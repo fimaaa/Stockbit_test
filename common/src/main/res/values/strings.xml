@@ -7,8 +7,8 @@
     <string name="error_unauthorized">Session Timeout</string>
 
     <string name="error_email_notvalid">Email/Username yang dimasukan tidak valid</string>
-    <string name="error_password_notvalid">Password yang dimasukan tidak valid, Harus lebih dari 8 dan mengandung huruf besar, symbol, dan nomor</string>
-    <string name="error_password_register_notvalid">Password yang dimasukan tidak valid</string>
+    <string name="error_password_register_notvalid">Password yang dimasukan tidak valid, Harus lebih dari 8 dan mengandung huruf besar, symbol, dan nomor</string>
+    <string name="error_password_notvalid">Password yang dimasukan tidak valid</string>
 
     <string name="success_default">Success</string>
 
