@@ -53,4 +53,6 @@ dependencies {
     debugImplementation "com.squareup.leakcanary:leakcanary-android:2.7"
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    implementation "org.java-websocket:Java-WebSocket:1.5.1"
 }

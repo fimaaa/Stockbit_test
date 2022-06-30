@@ -34,7 +34,7 @@ class ListCryptoFragment: BaseFragment<FragmentListcryptoBinding>(
 
     override fun getViewModel(): BaseViewModel = viewModel
 
-    private val adapter: AdapterCrypto = AdapterCrypto {
+    private var adapter: AdapterCrypto? = AdapterCrypto {
         showSnackbar(it.page.toString(), Snackbar.LENGTH_LONG)
     }.apply {
         addLoadStateListener {
@@ -79,10 +79,10 @@ class ListCryptoFragment: BaseFragment<FragmentListcryptoBinding>(
 
     override fun onObserveAction() {
         observe(viewModel.listCrypto) {
-            adapter.submitData(lifecycle, it)
+            adapter?.submitData(lifecycle, it)
         }
         observe(viewModel.refresh) {
-            adapter.refresh()
+            adapter?.refresh()
             binding.swiperefreshCrypto.isRefreshing = false
         }
     }
@@ -93,9 +93,9 @@ class ListCryptoFragment: BaseFragment<FragmentListcryptoBinding>(
             centerImage = R.drawable.ic_logo_stockbit,
             rightImage = R.drawable.ic_file_save
         )
-        binding.rcvCrypto.adapter = adapter.withLoadStateHeaderAndFooter(
-            header = BaseLoadStateAdapter { adapter.retry() },
-            footer = BaseLoadStateAdapter { adapter.retry() }
+        binding.rcvCrypto.adapter = adapter?.withLoadStateHeaderAndFooter(
+            header = BaseLoadStateAdapter { adapter?.retry() },
+            footer = BaseLoadStateAdapter { adapter?.retry() }
         )
         skeleton = binding.rcvCrypto.applySkeleton(R.layout.item_crypto)
         skeleton?.showShimmer = true
@@ -107,8 +107,19 @@ class ListCryptoFragment: BaseFragment<FragmentListcryptoBinding>(
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.swiperefreshCrypto.isEnabled = true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.swiperefreshCrypto.isEnabled = false
+    }
+
     override fun onFragmentDestroyed() {
         skeleton = null
+        adapter = null
     }
 
 }
