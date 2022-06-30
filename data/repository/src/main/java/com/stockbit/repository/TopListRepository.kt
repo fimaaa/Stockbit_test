@@ -1,36 +1,41 @@
 package com.stockbit.repository
 
 import androidx.lifecycle.LiveData
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.liveData
+import androidx.paging.*
 import com.stockbit.local.dao.CryptoDao
 import com.stockbit.model.crypto.ResponseListCryptoInfo
 import com.stockbit.model.common.BaseResponse
 import com.stockbit.remote.TopListDataSource
-import com.stockbit.repository.datasource.CryptoPagingSource
+import com.stockbit.repository.mediator.CryptoMediator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 interface TopListRepository {
     suspend fun getListTopTier(): Flow<BaseResponse<String, List<ResponseListCryptoInfo>>>
 
+    suspend fun getListTopTierLocal(): List<ResponseListCryptoInfo>
+
     fun getPagingTopTier(): LiveData<PagingData<ResponseListCryptoInfo>>
+
+    fun getPagingTopTierLocal(): PagingSource<Int, ResponseListCryptoInfo>
 }
 
-class TopListRepositoryImpl(private val datasource: TopListDataSource,
-                            private val dao: CryptoDao): TopListRepository {
+class TopListRepositoryImpl(
+    private val datasource: TopListDataSource,
+    private val dao: CryptoDao
+): TopListRepository {
 
-//    override suspend fun getListTopTier(): Flow<Resource<CryptoData>> {
-override suspend fun getListTopTier(): Flow<BaseResponse<String, List<ResponseListCryptoInfo>>> {
-    return flow {
-                val data = datasource.fetchTopUsersAsync()
-                emit(data)
-        }
+    override suspend fun getListTopTier(): Flow<BaseResponse<String, List<ResponseListCryptoInfo>>> {
+        return flow {
+                    val data = datasource.fetchTopUsersAsync()
+                    emit(data)
+            }
     }
 
+    override suspend fun getListTopTierLocal(): List<ResponseListCryptoInfo> = dao.getExample()
+
     override fun getPagingTopTier(): LiveData<PagingData<ResponseListCryptoInfo>> =
+        @OptIn(ExperimentalPagingApi::class)
         Pager(
             config = PagingConfig(
                 pageSize = 50,
@@ -38,6 +43,13 @@ override suspend fun getListTopTier(): Flow<BaseResponse<String, List<ResponseLi
                 enablePlaceholders = false,
                 prefetchDistance = 10
             ),
-            pagingSourceFactory = { CryptoPagingSource(datasource) }
+            pagingSourceFactory = { getPagingTopTierLocal() },
+            remoteMediator = CryptoMediator(
+                datasource,
+                dao
+            )
+        // CryptoPagingSource(datasource)
         ).liveData
+
+    override fun getPagingTopTierLocal(): PagingSource<Int, ResponseListCryptoInfo> = dao.getListCryptoPagination()
 }

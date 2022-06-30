@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 data class CryptoValue (
     @SerializedName("PRICE")
-    val price: String,
+    val price: String = "",
 
     @SerializedName("CHANGE24HOUR")
-    val change: String
+    val change: String = ""
 
 
 )

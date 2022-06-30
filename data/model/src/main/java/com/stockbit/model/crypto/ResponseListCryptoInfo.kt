@@ -10,13 +10,13 @@ data class ResponseListCryptoInfo(
     var id : Int = 0,
 
     @SerializedName("CoinInfo")
-    val coinInfo: CryptoData,
+    val coinInfo: CryptoData = CryptoData(),
 
     @SerializedName("DISPLAY")
-    val moneyData: MoneyData
+    val moneyData: MoneyData = MoneyData()
 ) {
     data class MoneyData(
         @SerializedName("USD")
-        val coinValue: CryptoValue
+        val coinValue: CryptoValue = CryptoValue()
     )
 }

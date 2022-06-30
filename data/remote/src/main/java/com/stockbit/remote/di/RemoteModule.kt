@@ -14,10 +14,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import java.util.concurrent.TimeUnit
+private const val BASE_URL_TOPTIER = "https://min-api.cryptocompare.com/data/"
+private const val BASIC_AUTH = "93a3c9336dee6d5b6545f45e717507990e339780998e33ccaa4aa75625a6e661"
 
 val createRemoteModule = module {
 
-    val BASE_URL_TOPTIER = "https://min-api.cryptocompare.com/data/"
+
 
     factory<Interceptor> {
         HttpLoggingInterceptor()
@@ -25,21 +27,7 @@ val createRemoteModule = module {
     }
 
     factory<OkHttpClient> {
-//        OkHttpClient.Builder()
-//            .addInterceptor(get())
-//            .addInterceptor(
-//                ChuckerInterceptor.Builder(androidContext())
-//                    .collector(ChuckerCollector(androidContext()))
-//                    .maxContentLength(250000L)
-//                    .redactHeaders(emptySet())
-//                    .alwaysReadResponseBody(false)
-//                    .build()
-//            )
-//            .build()
         val okHttpClientBuilder = OkHttpClient.Builder()
-//            .addInterceptor(provideHttpLoggingInterceptor())
-//            .addInterceptor(provideCacheInterceptor())
-
             .addInterceptor(
                 ChuckerInterceptor.Builder(androidContext())
                     .collector(ChuckerCollector(androidContext()))
@@ -54,7 +42,7 @@ val createRemoteModule = module {
                 val request = chain.request()
                 val requestBuilder = request.newBuilder()
                     .addHeader(
-                        "Authorization", "basicAuth"
+                        "Authorization", BASIC_AUTH
                     )
                     .addHeader("Content-Type", "application/json")
                     .addHeader("Accept-Language", language)

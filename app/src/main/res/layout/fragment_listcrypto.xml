@@ -13,11 +13,6 @@
             android:gravity="center"
             android:text="LIST CRYPTO"
         />
-        <com.stockbit.common.customview.BlankLayout
-            android:id="@+id/blanklayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_crypto"
             android:layout_width="match_parent"
@@ -27,6 +22,12 @@
             android:orientation="vertical"
             tools:listitem="@layout/item_crypto"
             tools:itemCount="5"
+            />
+        <com.stockbit.common.customview.BlankLayout
+            android:id="@+id/blanklayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
             />
     </LinearLayout>
 </layout>

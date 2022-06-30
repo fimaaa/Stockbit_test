@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class CryptoData(
 
     @SerializedName("Id")
-    val id: String,
+    val id: Int = 0,
 
     @SerializedName("Name")
     val name: String = "",

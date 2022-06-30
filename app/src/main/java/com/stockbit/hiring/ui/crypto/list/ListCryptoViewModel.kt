@@ -18,4 +18,11 @@ class ListCryptoViewModel(
 ): BaseViewModel() {
 
     val listCrypto: LiveData<PagingData<ResponseListCryptoInfo>> = topListRepository.getPagingTopTier().cachedIn(viewModelScope)
+
+    fun getLocal() {
+        safeApiCall {
+            val data = topListRepository.getListTopTierLocal()
+            println("TAG DATA LOCAL = $data")
+        }
+    }
 }
