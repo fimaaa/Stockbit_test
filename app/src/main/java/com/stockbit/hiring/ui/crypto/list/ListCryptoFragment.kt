@@ -34,49 +34,37 @@ class ListCryptoFragment: BaseFragment<FragmentListcryptoBinding>(
 
     override fun getViewModel(): BaseViewModel = viewModel
 
-    private val adapter = AdapterCrypto {
-        showSnackbar(it.coinInfo.fullName, Snackbar.LENGTH_LONG)
+    private val adapter: AdapterCrypto = AdapterCrypto {
+        showSnackbar(it.page.toString(), Snackbar.LENGTH_LONG)
     }.apply {
-        withLoadStateHeaderAndFooter(
-            header = BaseLoadStateAdapter { this.retry() },
-            footer = BaseLoadStateAdapter { this.retry() }
-        )
-    }
-
-    override fun onObserveAction() {
-        observe(viewModel.listCrypto) {
-            adapter.submitData(viewLifecycleOwner.lifecycle, it)
-        }
-        adapter.addLoadStateListener {
+        addLoadStateListener {
             lifecycleScope.launch {
-                adapter.loadStateFlow.collectLatest { loadState ->
+                loadStateFlow.collectLatest { loadState ->
                     binding.apply {
                         blanklayout.isVisible = false
-                        rcvCrypto.isVisible = true
+//                            rcvCrypto.isVisible = true
                         when  {
-                            loadState.refresh is LoadState.Loading -> if(adapter.itemCount < 1) skeleton?.showSkeleton()
-                            loadState.refresh is LoadState.NotLoading -> {
-                                skeleton?.showOriginal()
-                                if (loadState.refresh is LoadState.NotLoading &&
+                            loadState.refresh is androidx.paging.LoadState.Loading -> if(itemCount < 1) skeleton?.showSkeleton()
+                            loadState.refresh is androidx.paging.LoadState.NotLoading -> {
+                                if(skeleton?.isSkeleton() == true) skeleton?.showOriginal()
+                                if (loadState.refresh is androidx.paging.LoadState.NotLoading &&
                                     loadState.append.endOfPaginationReached &&
-                                    adapter.itemCount < 1
+                                    itemCount < 1
                                 ) {
-                                    rcvCrypto.isVisible = false
                                     blanklayout.isVisible = true
-                                    blanklayout.setType(HttpURLConnection.HTTP_NO_CONTENT)
+                                    blanklayout.setType(java.net.HttpURLConnection.HTTP_NO_CONTENT)
                                 }
                             }
-                            loadState.mediator?.refresh is LoadState.Error -> {
-                                skeleton?.showOriginal()
-                                val throwable = (loadState.refresh as LoadState.Error).error
-                                rcvCrypto.isVisible = adapter.itemCount > 1
-                                blanklayout.isVisible = adapter.itemCount < 1
+                            loadState.mediator?.refresh is androidx.paging.LoadState.Error -> {
+                                if(skeleton?.isSkeleton() == true)skeleton?.showOriginal()
+                                val throwable = (loadState.refresh as androidx.paging.LoadState.Error).error
+                                blanklayout.isVisible = itemCount < 1
                                 blanklayout.setType(
                                     throwable.toThrowableCode(),
                                     throwable.toThrowableMessage().asString(requireContext())
                                 )
-                                blanklayout.setOnClick(getString(R.string.retry)) {
-                                    adapter.retry()
+                                blanklayout.setOnClick(getString(com.stockbit.hiring.R.string.retry)) {
+                                    retry()
                                 }
                             }
                         }
@@ -86,21 +74,41 @@ class ListCryptoFragment: BaseFragment<FragmentListcryptoBinding>(
         }
     }
 
+    override fun onInitialization() {
+    }
+
+    override fun onObserveAction() {
+        observe(viewModel.listCrypto) {
+            adapter.submitData(lifecycle, it)
+        }
+        observe(viewModel.refresh) {
+            adapter.refresh()
+            binding.swiperefreshCrypto.isRefreshing = false
+        }
+    }
+
     override fun onReadyAction() {
-        binding.rcvCrypto.adapter = adapter
-        skeleton = binding.rcvCrypto.applySkeleton(R.layout.item_crypto)
-        skeleton?.showShimmer = true
         setToolbar(
             leftImage = R.drawable.ic_menu,
             centerImage = R.drawable.ic_logo_stockbit,
             rightImage = R.drawable.ic_file_save
         )
-        setToolbarRight {
-            viewModel.getLocal()
+        binding.rcvCrypto.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = BaseLoadStateAdapter { adapter.retry() },
+            footer = BaseLoadStateAdapter { adapter.retry() }
+        )
+        skeleton = binding.rcvCrypto.applySkeleton(R.layout.item_crypto)
+        skeleton?.showShimmer = true
+        binding.swiperefreshCrypto.setOnRefreshListener {
+            viewModel.refresh()
+        }
+        viewModel.refreshList.apply {
+            value = !(value?:false)
         }
     }
 
     override fun onFragmentDestroyed() {
         skeleton = null
     }
+
 }

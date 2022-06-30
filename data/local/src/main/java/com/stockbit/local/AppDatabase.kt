@@ -7,14 +7,17 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.stockbit.local.converter.Converters
 import com.stockbit.local.dao.CryptoDao
+import com.stockbit.local.dao.RemoteKeysDao
+import com.stockbit.model.crypto.RemoteKeys
 import com.stockbit.model.crypto.ResponseListCryptoInfo
 
-@Database(entities = [ResponseListCryptoInfo::class], version = 1, exportSchema = false)
+@Database(entities = [ResponseListCryptoInfo::class, RemoteKeys::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
 
     // DAO
-    abstract fun exampleDao(): CryptoDao
+    abstract fun getRepoDao(): RemoteKeysDao
+    abstract fun cryptoDao(): CryptoDao
 
     companion object {
 

@@ -37,6 +37,7 @@ class BaseLoadStateAdapter(private val retry: () -> Unit) :
 
         fun bind(loadState: LoadState) {
             binding.apply {
+                println("TAG LOADSTATE = $loadState")
                 pbTask.isVisible = loadState is LoadState.Loading
                 btnRetryLoadingtask.isVisible = loadState !is LoadState.Loading
             }

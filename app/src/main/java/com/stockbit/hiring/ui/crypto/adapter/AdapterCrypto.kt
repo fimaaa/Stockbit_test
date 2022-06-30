@@ -24,21 +24,12 @@ class AdapterCrypto(
         )
     )
 
-
-    inner class ViewHolder(private val binding: ItemCryptoBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            binding.root.setOnClickListener {
-                val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    getItem(position)?.let { listener.invoke(it) }
-                }
-            }
-        }
-
+    inner class ViewHolder(private val binding: ItemCryptoBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(exampleData: ResponseListCryptoInfo) {
             binding.data = exampleData
+            binding.root.setOnClickListener {
+                listener.invoke(exampleData)
+            }
         }
     }
 

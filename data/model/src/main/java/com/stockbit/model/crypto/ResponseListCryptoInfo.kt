@@ -9,6 +9,8 @@ data class ResponseListCryptoInfo(
     @PrimaryKey
     var id : Int = 0,
 
+    var page: Int = 0,
+
     @SerializedName("CoinInfo")
     val coinInfo: CryptoData = CryptoData(),
 

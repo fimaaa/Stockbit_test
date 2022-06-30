@@ -52,4 +52,5 @@ dependencies {
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:2.7"
 
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }

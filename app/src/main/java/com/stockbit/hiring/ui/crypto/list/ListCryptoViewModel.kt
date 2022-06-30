@@ -1,6 +1,7 @@
 package com.stockbit.hiring.ui.crypto.list
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -17,12 +18,18 @@ class ListCryptoViewModel(
     private val topListRepository: TopListRepository
 ): BaseViewModel() {
 
-    val listCrypto: LiveData<PagingData<ResponseListCryptoInfo>> = topListRepository.getPagingTopTier().cachedIn(viewModelScope)
+    val refreshList = MutableLiveData<Boolean>()
+    val refresh = MutableLiveData<Boolean>()
+    val listCrypto: LiveData<PagingData<ResponseListCryptoInfo>> = refreshList.switchMap {
+        topListRepository.getPagingTopTier().cachedIn(viewModelScope)
+    }
 
-    fun getLocal() {
+    fun refresh() {
         safeApiCall {
-            val data = topListRepository.getListTopTierLocal()
-            println("TAG DATA LOCAL = $data")
+            topListRepository.clearAllData()
+            refreshList.postValue(!(refreshList.value?:false))
+            refresh.postValue(!(refresh.value?:false))
         }
+
     }
 }

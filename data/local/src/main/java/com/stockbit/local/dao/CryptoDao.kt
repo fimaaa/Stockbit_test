@@ -8,13 +8,16 @@ import com.stockbit.model.crypto.ResponseListCryptoInfo
 @Dao
 abstract class CryptoDao: BaseDao<ResponseListCryptoInfo>() {
 
-    @Query("SELECT * FROM ResponseListCryptoInfo")
+    @Query("SELECT * FROM ResponseListCryptoInfo ORDER BY page ASC")
     abstract suspend fun getExample(): List<ResponseListCryptoInfo>
 
 
-    @Query("SELECT * FROM ResponseListCryptoInfo")
+    @Query("SELECT * FROM ResponseListCryptoInfo ORDER BY page ASC")
     abstract fun getListCryptoPagination(): PagingSource<Int, ResponseListCryptoInfo>
 
+
+    @Query("DELETE FROM ResponseListCryptoInfo")
+    abstract suspend fun deleteAll()
 
     suspend fun save(data: ResponseListCryptoInfo) {
         insert(data)
