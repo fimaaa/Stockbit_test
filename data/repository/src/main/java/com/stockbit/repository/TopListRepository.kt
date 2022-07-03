@@ -16,6 +16,8 @@ interface TopListRepository {
 
     suspend fun getListTopTierLocal(): List<ResponseListCryptoInfo>
 
+    suspend fun checkDaoExist() : Boolean
+
     suspend fun clearAllData()
 
     fun getPagingTopTier(): LiveData<PagingData<ResponseListCryptoInfo>>
@@ -36,9 +38,15 @@ class TopListRepositoryImpl(
             }
     }
 
-    override suspend fun getListTopTierLocal(): List<ResponseListCryptoInfo> = dao.getExample()
+    override suspend fun getListTopTierLocal(): List<ResponseListCryptoInfo> = dao.getAllListCrypto()
 
-    override suspend fun clearAllData() = dao.deleteAll()
+    override suspend fun checkDaoExist() = dao.checkListExist () != null
+
+
+    override suspend fun clearAllData() {
+        dao.deleteAll()
+        remoteKeyDao.clearRemoteKeys()
+    }
 
     override fun getPagingTopTier(): LiveData<PagingData<ResponseListCryptoInfo>> =
         @OptIn(ExperimentalPagingApi::class)
@@ -53,8 +61,9 @@ class TopListRepositoryImpl(
                 dao,
                 remoteKeyDao
             )
-        // CryptoPagingSource(datasource)
+            // CryptoPagingSource(datasource)
         ).liveData
 
     override fun getPagingTopTierLocal(): PagingSource<Int, ResponseListCryptoInfo> = dao.getListCryptoPagination()
+
 }

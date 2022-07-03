@@ -75,14 +75,13 @@ class CryptoMediator(
             val isEndOfList =
                 repos.isEmpty() || (apiResponse.pagination?.totalPage ?: 0) <= page * 50
 
-            println("TAG MASIH MASUK")
-
+            val listCrypto = arrayListOf<ResponseListCryptoInfo>()
             // clear all tables in the database
             if (loadType == LoadType.REFRESH) {
+                listCrypto.addAll(dao.getAllListCrypto())
                 remoteKeyDao.clearRemoteKeys()
                 dao.deleteAll()
             }
-            println("TAG MASIH MERAGUKAN")
 
             val prevKey = if (page <= 0) null else page - 1
             val nextKey = if (isEndOfList) null else page + 1

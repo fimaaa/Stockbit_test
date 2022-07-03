@@ -6,6 +6,7 @@ import com.stockbit.common.base.BaseViewModel
 import com.stockbit.hiring.databinding.FragmentListcryptoBinding
 import com.stockbit.hiring.R
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.faltenreich.skeletonlayout.Skeleton
@@ -19,6 +20,7 @@ import com.stockbit.hiring.ui.crypto.adapter.AdapterCrypto
 import com.stockbit.model.common.UIText
 import com.stockbit.remote.extension.toThrowableCode
 import com.stockbit.remote.extension.toThrowableMessage
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -37,36 +39,35 @@ class ListCryptoFragment: BaseFragment<FragmentListcryptoBinding>(
     private var adapter: AdapterCrypto? = AdapterCrypto {
         showSnackbar(it.page.toString(), Snackbar.LENGTH_LONG)
     }.apply {
-        addLoadStateListener {
-            lifecycleScope.launch {
-                loadStateFlow.collectLatest { loadState ->
-                    binding.apply {
-                        blanklayout.isVisible = false
+        addLoadStateListener { loadState ->
+            binding.apply {
+                blanklayout.isVisible = false
 //                            rcvCrypto.isVisible = true
-                        when  {
-                            loadState.refresh is androidx.paging.LoadState.Loading -> if(itemCount < 1) skeleton?.showSkeleton()
-                            loadState.refresh is androidx.paging.LoadState.NotLoading -> {
-                                if(skeleton?.isSkeleton() == true) skeleton?.showOriginal()
-                                if (loadState.refresh is androidx.paging.LoadState.NotLoading &&
-                                    loadState.append.endOfPaginationReached &&
-                                    itemCount < 1
-                                ) {
-                                    blanklayout.isVisible = true
-                                    blanklayout.setType(java.net.HttpURLConnection.HTTP_NO_CONTENT)
-                                }
-                            }
-                            loadState.mediator?.refresh is androidx.paging.LoadState.Error -> {
-                                if(skeleton?.isSkeleton() == true)skeleton?.showOriginal()
-                                val throwable = (loadState.refresh as androidx.paging.LoadState.Error).error
-                                blanklayout.isVisible = itemCount < 1
-                                blanklayout.setType(
-                                    throwable.toThrowableCode(),
-                                    throwable.toThrowableMessage().asString(requireContext())
-                                )
-                                blanklayout.setOnClick(getString(com.stockbit.hiring.R.string.retry)) {
-                                    retry()
-                                }
-                            }
+                when  {
+                    loadState.refresh is LoadState.Loading -> {
+                        lifecycleScope.launch{
+                            if(itemCount < 1 && !viewModel.isDataExist()) skeleton?.showSkeleton()
+                        }
+                    }
+                    loadState.refresh is LoadState.NotLoading -> {
+                        if(skeleton?.isSkeleton() == true) skeleton?.showOriginal()
+                        if (loadState.append.endOfPaginationReached &&
+                            itemCount < 1
+                        ) {
+                            blanklayout.isVisible = true
+                            blanklayout.setType(java.net.HttpURLConnection.HTTP_NO_CONTENT)
+                        }
+                    }
+                    loadState.mediator?.refresh is LoadState.Error -> {
+                        if(skeleton?.isSkeleton() == true)skeleton?.showOriginal()
+                        val throwable = (loadState.refresh as LoadState.Error).error
+                        blanklayout.isVisible = itemCount < 1
+                        blanklayout.setType(
+                            throwable.toThrowableCode(),
+                            throwable.toThrowableMessage().asString(requireContext())
+                        )
+                        blanklayout.setOnClick(getString(com.stockbit.hiring.R.string.retry)) {
+                            retry()
                         }
                     }
                 }
@@ -118,6 +119,8 @@ class ListCryptoFragment: BaseFragment<FragmentListcryptoBinding>(
     }
 
     override fun onFragmentDestroyed() {
+        viewModel.refresh.removeObservers(viewLifecycleOwner)
+        lifecycleScope.cancel()
         skeleton = null
         adapter = null
     }

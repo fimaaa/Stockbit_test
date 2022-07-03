@@ -24,6 +24,14 @@ class SocketCryptoFragment: BaseFragment<FragmentCryptoSocketBinding>(
     private lateinit var webSocketClient: WebSocketClient
 
     override fun onReadyAction() {
+        binding.btnOpen.setOnClickListener {
+            binding.tvPriceSocket.text = "Opened Socket"
+            initWebSocket()
+        }
+        binding.btnClose.setOnClickListener {
+            binding.tvPriceSocket.text = "Closed Socket"
+            webSocketClient.close()
+        }
     }
 
     private fun initWebSocket() {
