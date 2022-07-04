@@ -10,6 +10,7 @@ import com.stockbit.local.dao.RemoteKeysDao
 import com.stockbit.model.crypto.RemoteKeys
 import com.stockbit.model.crypto.ResponseListCryptoInfo
 import com.stockbit.remote.TopListDataSource
+import org.java_websocket.client.WebSocketClient
 import java.io.IOException
 import java.io.InvalidObjectException
 
@@ -17,7 +18,8 @@ import java.io.InvalidObjectException
 class CryptoMediator(
     private val service: TopListDataSource,
     private val dao: CryptoDao,
-    private val remoteKeyDao: RemoteKeysDao
+    private val remoteKeyDao: RemoteKeysDao,
+    private val webSocketClient: WebSocketClient
 ): RemoteMediator<Int, ResponseListCryptoInfo>() {
 
     override suspend fun initialize(): InitializeAction {
@@ -71,6 +73,20 @@ class CryptoMediator(
             repos.map {
                 it.id = it.coinInfo.id
                 it.page = page
+            }
+            repos.forEach {
+                webSocketClient.send(
+                    "{\n" +
+                            "    \"action\": \"SubRemove\",\n" +
+                            "    \"subs\": [\"${"21~"+it.coinInfo.name}\"]" +
+                            "}"
+                )
+                webSocketClient.send(
+                    "{\n" +
+                            "    \"action\": \"SubAdd\",\n" +
+                            "    \"subs\": [\"${"21~"+it.coinInfo.name}\"]" +
+                            "}"
+                )
             }
             val isEndOfList =
                 repos.isEmpty() || (apiResponse.pagination?.totalPage ?: 0) <= page * 50

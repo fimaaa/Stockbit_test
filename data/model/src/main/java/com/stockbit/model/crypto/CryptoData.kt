@@ -8,7 +8,7 @@ data class CryptoData(
     val id: Int = 0,
 
     @SerializedName("Name")
-    val name: String = "",
+    var name: String = "",
 
     @SerializedName("FullName")
     val fullName: String = "",

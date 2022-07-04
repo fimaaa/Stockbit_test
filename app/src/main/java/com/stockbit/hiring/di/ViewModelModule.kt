@@ -7,7 +7,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    viewModel { ListCryptoViewModel(get()) }
+    viewModel { ListCryptoViewModel(get(named("webSocket")), get()) }
     viewModel { SocketCryptoViewModel(get(named("webSocket"))) }
 }
 

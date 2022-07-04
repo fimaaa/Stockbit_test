@@ -56,7 +56,7 @@
             app:layout_constraintBottom_toBottomOf="@id/tv_crypto_fullname"
             android:gravity="center_vertical|end"
             style="@style/title_normal_light"
-            android:text="@{data.moneyData.coinValue.change}"
+            app:textPrice="@{data.moneyData.coinValue.change}"
             tools:text="RP.25.0000"
             />
         <View

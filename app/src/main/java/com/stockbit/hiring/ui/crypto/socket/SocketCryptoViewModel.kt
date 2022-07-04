@@ -72,7 +72,7 @@ class SocketCryptoViewModel(
         webSocketClient.send(
             "{\n" +
                     "    \"action\": \"SubAdd\",\n" +
-                    "    \"subs\": [\"21~BTC\"]" +
+                    "    \"subs\": [\"21~BTC\", \"21~ETH\"]" +
                     "}"
         )
     }
@@ -87,7 +87,7 @@ class SocketCryptoViewModel(
         webSocketClient.send(
             "{\n" +
                     "    \"action\": \"SubRemove\",\n" +
-                    "    \"subs\": [\"21~BTC\"]" +
+                    "    \"subs\": [\"21~BTC\", \"21~ETH\"]" +
                     "}"
         )
     }

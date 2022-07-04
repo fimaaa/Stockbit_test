@@ -14,7 +14,7 @@ data class ResponseListCryptoInfo(
     @SerializedName("CoinInfo")
     val coinInfo: CryptoData = CryptoData(),
 
-    @SerializedName("DISPLAY")
+    @SerializedName("RAW")
     val moneyData: MoneyData = MoneyData()
 ) {
     data class MoneyData(

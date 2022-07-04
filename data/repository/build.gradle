@@ -22,4 +22,5 @@ dependencies {
     testImplementation project(Modules.commonTest)
 
     implementation AndroidLibraries.pagination
+    implementation "org.java-websocket:Java-WebSocket:1.5.1"
 }

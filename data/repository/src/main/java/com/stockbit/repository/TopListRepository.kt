@@ -10,6 +10,7 @@ import com.stockbit.remote.TopListDataSource
 import com.stockbit.repository.mediator.CryptoMediator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import org.java_websocket.client.WebSocketClient
 
 interface TopListRepository {
     suspend fun getListTopTier(): Flow<BaseResponse<String, List<ResponseListCryptoInfo>>>
@@ -20,7 +21,7 @@ interface TopListRepository {
 
     suspend fun clearAllData()
 
-    fun getPagingTopTier(): LiveData<PagingData<ResponseListCryptoInfo>>
+    fun getPagingTopTier(webSocketClient: WebSocketClient): LiveData<PagingData<ResponseListCryptoInfo>>
 
     fun getPagingTopTierLocal(): PagingSource<Int, ResponseListCryptoInfo>
 }
@@ -48,7 +49,7 @@ class TopListRepositoryImpl(
         remoteKeyDao.clearRemoteKeys()
     }
 
-    override fun getPagingTopTier(): LiveData<PagingData<ResponseListCryptoInfo>> =
+    override fun getPagingTopTier(webSocketClient: WebSocketClient): LiveData<PagingData<ResponseListCryptoInfo>> =
         @OptIn(ExperimentalPagingApi::class)
         Pager(
             config = PagingConfig(
@@ -57,9 +58,10 @@ class TopListRepositoryImpl(
             ),
             pagingSourceFactory = { getPagingTopTierLocal() },
             remoteMediator = CryptoMediator(
-                datasource,
-                dao,
-                remoteKeyDao
+                service = datasource,
+                dao = dao,
+                remoteKeyDao = remoteKeyDao,
+                webSocketClient = webSocketClient
             )
             // CryptoPagingSource(datasource)
         ).liveData

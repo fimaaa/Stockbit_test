@@ -86,6 +86,14 @@ class ListCryptoFragment: BaseFragment<FragmentListcryptoBinding>(
             adapter?.refresh()
             binding.swiperefreshCrypto.isRefreshing = false
         }
+        observe(viewModel.newMessage) {
+            adapter?.snapshot()?.items?.forEachIndexed { position, item ->
+                if(item.coinInfo.name == it.symbol){
+                    item.moneyData.coinValue.change = it.topTierVolume?:0.0
+                    adapter?.notifyItemChanged(position)
+                }
+            }
+        }
     }
 
     override fun onReadyAction() {
@@ -106,15 +114,29 @@ class ListCryptoFragment: BaseFragment<FragmentListcryptoBinding>(
         viewModel.refreshList.apply {
             value = !(value?:false)
         }
+        binding.tvTitleCrypto.setOnClickListener {
+//            val data = adapter?.snapshot()?.firstOrNull { info ->
+//                info?.coinInfo?.name == "BTC"
+//            }
+//            data?.coinInfo?.name = "BERUBAH"
+            adapter?.snapshot()?.items?.forEachIndexed { position, item ->
+                if(item.coinInfo.name == "BTC"){
+                    item.coinInfo.name = "CHANGED"
+                    adapter?.notifyItemChanged(position)
+                }
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
+        viewModel.reConnectingWebSocket()
         binding.swiperefreshCrypto.isEnabled = true
     }
 
     override fun onPause() {
         super.onPause()
+        viewModel.disconnectWebSocket()
         binding.swiperefreshCrypto.isEnabled = false
     }
 

@@ -6,8 +6,6 @@ data class CryptoValue (
     @SerializedName("PRICE")
     val price: String = "",
 
-    @SerializedName("CHANGE24HOUR")
-    val change: String = ""
-
-
+    @SerializedName("TOTALTOPTIERVOLUME24H")
+    var change: Double = 0.0
 )
