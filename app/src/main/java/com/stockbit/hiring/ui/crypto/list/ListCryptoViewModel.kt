@@ -34,6 +34,5 @@ class ListCryptoViewModel(
             refreshList.postValue(!(refreshList.value?:false))
             refresh.postValue(!(refresh.value?:false))
         }
-
     }
 }

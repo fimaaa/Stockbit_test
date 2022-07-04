@@ -37,7 +37,7 @@ class ListCryptoFragment: BaseFragment<FragmentListcryptoBinding>(
     override fun getViewModel(): BaseViewModel = viewModel
 
     private var adapter: AdapterCrypto? = AdapterCrypto {
-        showSnackbar(it.page.toString(), Snackbar.LENGTH_LONG)
+        showSnackbar(it.coinInfo.fullName, Snackbar.LENGTH_LONG)
     }.apply {
         addLoadStateListener { loadState ->
             binding.apply {
